@@ -52,7 +52,7 @@ public final class DisplayUtil {
 
 	/**
 	 * 
-	 * 获得ActionBar的高度
+	 * 获得ActionBar的高度，注：在配置文件中获得ActionBar高度可通过：?attr/actionBarSize
 	 * 
 	 * @param activity
 	 *            当前的Activity对象
