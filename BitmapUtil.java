@@ -408,31 +408,30 @@ public class BitmapUtil {
 		return degree;
 	}
 
-	/**
+	 /**
 	 * @param bitmap
 	 *            要保存的bitmap
 	 * @param file
-	 *            保存的文件地址
+	 *            要保存的文件
 	 * @param quality
 	 *            0~100 图片质量
 	 * @return 保存是否成功
 	 * @throws IOException
+	 * @throws FileNotFoundException
+	 *             注意：可能没有添加对文件的读写权限
 	 */
-	public static boolean saveBitmap(Bitmap bitmap, File file, int quality) {
+	public static boolean saveBitmap(Bitmap bitmap, File file, int quality)
+			throws IOException, FileNotFoundException {
 		boolean result = false;
 
 		if (bitmap == null)
-			return result;
+			throw new NullPointerException("bitmap can't be null!");
 
-		try {
-			OutputStream outputStream = new FileOutputStream(file);
-			result = bitmap.compress(Bitmap.CompressFormat.JPEG, quality,
-					outputStream);
-			outputStream.flush();
-			outputStream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		OutputStream outputStream = new FileOutputStream(file);
+		result = bitmap.compress(Bitmap.CompressFormat.JPEG, quality,
+				outputStream);
+		outputStream.flush();
+		outputStream.close();
 
 		return result;
 	}
