@@ -3,7 +3,7 @@
 /**
  * @Title:
  * @Package
- * @Description: TODO(用于测试的Debug工具类)
+ * @Description: TODO(用于控制整个应用程序测试的Debug工具类，包括Log,Toast,File)
  * @author wangjiang wangjiang7747@gmail.com
  * @date 2016-2-28 下午8:15:57
  * @version V1.0
