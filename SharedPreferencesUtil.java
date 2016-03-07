@@ -33,8 +33,10 @@ public class SharedPreferencesUtil {
 	private SharedPreferences.Editor mEditor;
 
 	private SharedPreferencesUtil(Context context, String name, int mode) {
-		mSharedPreferences = context.getSharedPreferences(name, mode);
-		mEditor = mSharedPreferences.edit();
+		if (mSharedPreferences == null) {
+			mSharedPreferences = context.getSharedPreferences(name, mode);
+			mEditor = mSharedPreferences.edit();
+		}
 	}
 
 	/**
