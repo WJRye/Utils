@@ -224,4 +224,97 @@ public final class FileUtil {
 
 	}
 
+	/**
+	 * 把数据写入指定文件
+	 * 
+	 * @param path
+	 *            文件路径 例如：/cache
+	 * @param filename
+	 *            文件名字
+	 * @param data
+	 *            要写入的数据
+	 * @throws IOException
+	 */
+	public static void writeDataToSDCard(String path, String filename,
+			byte[] data) throws IOException {
+		File file = createFile(path, filename);
+		BufferedOutputStream out = new BufferedOutputStream(
+				new FileOutputStream(file));
+		out.write(data);
+		out.flush();
+		out.close();
+	}
+
+	/**
+	 * 
+	 * 把数据写入指定文件
+	 * 
+	 * @param file
+	 *            指定文件
+	 * @param data
+	 *            要写入的数据
+	 * @throws IOException
+	 */
+	public static void writeDataToSDCard(File file, byte[] data)
+			throws IOException {
+		BufferedOutputStream out = new BufferedOutputStream(
+				new FileOutputStream(file));
+		out.write(data);
+		out.flush();
+		out.close();
+	}
+
+	/**
+	 * 把数据写入指定文件
+	 * 
+	 * @param path
+	 *            文件路径 例如：/cache
+	 * @param filename
+	 *            文件名字
+	 * @param inputStream
+	 *            输入流
+	 * @throws IOException
+	 */
+	public static void writeDataToSDCard(String path, String filename,
+			InputStream inputStream) throws IOException {
+		File file = createFile(path, filename);
+		BufferedOutputStream out = new BufferedOutputStream(
+				new FileOutputStream(file));
+		BufferedInputStream in = new BufferedInputStream(inputStream);
+		byte[] data = new byte[in.available()];
+		int len = 0;
+		while ((len = in.read(data)) != -1) {
+			out.write(data);
+		}
+		in.close();
+		out.flush();
+		out.close();
+	}
+
+	/**
+	 * 
+	 * 把数据写入指定文件
+	 * 
+	 * @param file
+	 *            指定文件
+	 * @param inputStream
+	 *            输入流
+	 * @throws IOException
+	 */
+	public static void writeDataToSDCard(File file, InputStream inputStream)
+			throws IOException {
+
+		BufferedOutputStream out = new BufferedOutputStream(
+				new FileOutputStream(file));
+		BufferedInputStream in = new BufferedInputStream(inputStream);
+		byte[] data = new byte[in.available()];
+		int len = 0;
+		while ((len = in.read(data)) != -1) {
+			out.write(data);
+		}
+		in.close();
+		out.flush();
+		out.close();
+
+	}
 }
