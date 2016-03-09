@@ -1,4 +1,3 @@
-package com.example.utils.usercase.provider;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,8 +26,17 @@ import android.provider.MediaStore.Video;
  */
 public final class MediaProviderUtil {
 
+	/**
+	 * 图片URI
+	 */
 	public static final Uri IMAGE = Images.Media.EXTERNAL_CONTENT_URI;
+	/**
+	 * 视屏URI
+	 */
 	public static final Uri VIDEO = Video.Media.EXTERNAL_CONTENT_URI;
+	/**
+	 * 音频URI
+	 */
 	public static final Uri AUDIO = Audio.Media.EXTERNAL_CONTENT_URI;
 
 	private MediaProviderUtil() {
