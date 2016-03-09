@@ -14,6 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.os.Environment;
 
 /**
@@ -34,12 +36,12 @@ public final class FileUtil {
 	/**
 	 * @param path
 	 *            文件路径，例如：/cache；如果path为"/",则文件存在于手机根目录下
-	 * @param filename
+	 * @param fileName
 	 *            1.txt
 	 * @return 文件
 	 */
-	public static File createFile(String path, String filename) {
-		return new File(getRootFile(path), filename);
+	public static File createFile(String path, String fileName) {
+		return new File(getRootFile(path), fileName);
 	}
 
 	/**
@@ -74,7 +76,7 @@ public final class FileUtil {
 	 * 
 	 * @param path
 	 *            文件路径 例如：/cache
-	 * @param filename
+	 * @param fileName
 	 *            文件名字
 	 * @param content
 	 *            文本内容
@@ -83,9 +85,9 @@ public final class FileUtil {
 	 * @throws Exception
 	 *             文件不存在，读取文件出错
 	 */
-	public static void writeTextToSDCard(String path, String filename,
+	public static void writeTextToSDCard(String path, String fileName,
 			String content, boolean append) throws Exception {
-		File desFile = createFile(path, filename);
+		File desFile = createFile(path, fileName);
 		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream(desFile, append)));
 		writer.write(content);
@@ -99,16 +101,16 @@ public final class FileUtil {
 	 * 
 	 * @param path
 	 *            文件路径 例如：/cache
-	 * @param filename
+	 * @param fileName
 	 *            文件名字
 	 * @return 文本内容
 	 * @throws Exception
 	 *             文件不存在，读取文件出错
 	 */
-	public static String readTextFromSDCard(String path, String filename)
+	public static String readTextFromSDCard(String path, String fileName)
 			throws Exception {
 		InputStream inputStream = new FileInputStream(
-				createFile(path, filename));
+				createFile(path, fileName));
 		byte[] buffer = new byte[inputStream.available()];
 		int len = 0;
 		while ((len = inputStream.read(buffer)) != -1) {
@@ -229,15 +231,15 @@ public final class FileUtil {
 	 * 
 	 * @param path
 	 *            文件路径 例如：/cache
-	 * @param filename
+	 * @param fileName
 	 *            文件名字
 	 * @param data
 	 *            要写入的数据
 	 * @throws IOException
 	 */
-	public static void writeDataToSDCard(String path, String filename,
+	public static void writeDataToSDCard(String path, String fileName,
 			byte[] data) throws IOException {
-		writeDataToSDCard(createFile(path, filename), data);
+		writeDataToSDCard(createFile(path, fileName), data);
 	}
 
 	/**
@@ -264,15 +266,15 @@ public final class FileUtil {
 	 * 
 	 * @param path
 	 *            文件路径 例如：/cache
-	 * @param filename
+	 * @param fileName
 	 *            文件名字
 	 * @param inputStream
 	 *            输入流
 	 * @throws IOException
 	 */
-	public static void writeDataToSDCard(String path, String filename,
+	public static void writeDataToSDCard(String path, String fileName,
 			InputStream inputStream) throws IOException {
-		writeDataToSDCard(createFile(path, filename), inputStream);
+		writeDataToSDCard(createFile(path, fileName), inputStream);
 	}
 
 	/**
@@ -300,7 +302,24 @@ public final class FileUtil {
 		out.flush();
 		out.close();
 	}
-	
-	
+
+	/**
+	 * 将Assets中的文件复制到SDCard中
+	 * 
+	 * @param context
+	 *            上下文对象
+	 * @param assetFileName
+	 *            Assets文件夹下的文件名字
+	 * @param desFile
+	 *            在SDCard中的文件
+	 * @throws IOException
+	 *             文件不存在或者读取文件出错
+	 */
+	public static void copyAssetsToSDCard(Context context,
+			String assetFileName, File desFile) throws IOException {
+		AssetManager am = context.getAssets();
+		InputStream inputStream = am.open(assetFileName);
+		writeDataToSDCard(desFile, inputStream);
+	}
 
 }
