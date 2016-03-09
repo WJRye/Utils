@@ -1,4 +1,4 @@
-
+package com.example.utils.usercase.debug;
 
 import android.util.Log;
 
@@ -18,94 +18,94 @@ public final class DebugLog extends Debug {
 
 	}
 
-	public static void v(String tag, String msg) {
+	public static void v(String tag, Object msg) {
 
 		if (isDebug())
-			Log.v(tag, msg);
+			Log.v(tag, msg.toString());
 
 	}
 
-	public static void v(String tag, String msg, Throwable tr) {
+	public static void v(String tag, Object msg, Throwable tr) {
 
 		if (isDebug())
-			Log.v(tag, msg, tr);
+			Log.v(tag, msg.toString(), tr);
 
 	}
 
-	public static void d(String tag, String msg) {
+	public static void d(String tag, Object msg) {
 
 		if (isDebug())
-			Log.d(tag, msg);
+			Log.d(tag, msg.toString());
 
 	}
 
-	public static void d(String tag, String msg, Throwable tr) {
+	public static void d(String tag, Object msg, Throwable tr) {
 
 		if (isDebug())
-			Log.d(tag, msg, tr);
+			Log.d(tag, msg.toString(), tr);
 
 	}
 
-	public static void i(String tag, String msg) {
+	public static void i(String tag, Object msg) {
 
 		if (isDebug())
-			Log.i(tag, msg);
+			Log.i(tag, msg.toString());
 
 	}
 
-	public static void i(String tag, String msg, Throwable tr) {
+	public static void i(String tag, Object msg, Throwable tr) {
 
 		if (isDebug())
-			Log.i(tag, msg, tr);
+			Log.i(tag, msg.toString(), tr);
 
 	}
 
-	public static void w(String tag, String msg) {
+	public static void w(String tag, Object msg) {
 
 		if (isDebug())
-			Log.w(tag, msg);
+			Log.w(tag, msg.toString());
 
 	}
 
-	public static void w(String tag, String msg, Throwable tr) {
+	public static void w(String tag, Object msg, Throwable tr) {
 
 		if (isDebug())
-			Log.w(tag, msg, tr);
+			Log.w(tag, msg.toString(), tr);
 
 	}
 
-	public static void e(String tag, String msg) {
+	public static void e(String tag, Object msg) {
 
 		if (isDebug())
-			Log.e(tag, msg);
+			Log.e(tag, msg.toString());
 
 	}
 
-	public static void e(String tag, String msg, Throwable tr) {
+	public static void e(String tag, Object msg, Throwable tr) {
 
 		if (isDebug())
-			Log.e(tag, msg, tr);
+			Log.e(tag, msg.toString(), tr);
 
 	}
 
-	public static void wtf(String tag, String msg) {
+	public static void wtf(String tag, Object msg) {
 
 		if (isDebug())
-			Log.wtf(tag, msg);
+			Log.wtf(tag, msg.toString());
 
 	}
 
-	public static void wtf(String tag, String msg, Throwable tr) {
+	public static void wtf(String tag, Object msg, Throwable tr) {
 
 		if (isDebug())
-			Log.wtf(tag, msg, tr);
+			Log.wtf(tag, msg.toString(), tr);
 
 	}
 
-	public static void println(int priority, String tag, String msg) {
+	public static void println(int priority, String tag, Object msg) {
 
 		if (isDebug())
-			Log.println(priority, tag, msg);
+			Log.println(priority, tag, msg.toString());
 
 	}
 
@@ -116,94 +116,94 @@ public final class DebugLog extends Debug {
 		return IS_PUBLIC_DEBUG && IS_PRIVATE_DEBUG;
 	}
 
-	public static void v(String msg) {
+	public static void v(Object msg) {
 
 		if (isDebug())
-			Log.v(TAG, msg);
+			Log.v(TAG, msg.toString());
 
 	}
 
-	public static void v(String msg, Throwable tr) {
+	public static void v(Object msg, Throwable tr) {
 
 		if (isDebug())
-			Log.v(TAG, msg, tr);
+			Log.v(TAG, msg.toString(), tr);
 
 	}
 
-	public static void d( String msg) {
+	public static void d(Object msg) {
 
 		if (isDebug())
-			Log.d(TAG, msg);
+			Log.d(TAG, msg.toString());
 
 	}
 
-	public static void d(String msg, Throwable tr) {
+	public static void d(Object msg, Throwable tr) {
 
 		if (isDebug())
-			Log.d(TAG, msg, tr);
+			Log.d(TAG, msg.toString(), tr);
 
 	}
 
-	public static void i(String msg) {
+	public static void i(Object msg) {
 
 		if (isDebug())
-			Log.i(TAG, msg);
+			Log.i(TAG, msg.toString());
 
 	}
 
-	public static void i(String msg, Throwable tr) {
+	public static void i(Object msg, Throwable tr) {
 
 		if (isDebug())
-			Log.i(TAG, msg, tr);
+			Log.i(TAG, msg.toString(), tr);
 
 	}
 
-	public static void w(String msg) {
+	public static void w(Object msg) {
 
 		if (isDebug())
-			Log.w(TAG, msg);
+			Log.w(TAG, msg.toString());
 
 	}
 
-	public static void w(String msg, Throwable tr) {
+	public static void w(Object msg, Throwable tr) {
 
 		if (isDebug())
-			Log.w(TAG, msg, tr);
+			Log.w(TAG, msg.toString(), tr);
 
 	}
 
-	public static void e( String msg) {
+	public static void e(Object msg) {
 
 		if (isDebug())
-			Log.e(TAG, msg);
+			Log.e(TAG, msg.toString());
 
 	}
 
-	public static void e(String msg, Throwable tr) {
+	public static void e(Object msg, Throwable tr) {
 
 		if (isDebug())
-			Log.e(TAG, msg, tr);
+			Log.e(TAG, msg.toString(), tr);
 
 	}
 
-	public static void wtf( String msg) {
+	public static void wtf(Object msg) {
 
 		if (isDebug())
-			Log.wtf(TAG, msg);
+			Log.wtf(TAG, msg.toString());
 
 	}
 
-	public static void wtf( String msg, Throwable tr) {
+	public static void wtf(Object msg, Throwable tr) {
 
 		if (isDebug())
-			Log.wtf(TAG, msg, tr);
+			Log.wtf(TAG, msg.toString(), tr);
 
 	}
 
-	public static void println(int priority, String msg) {
+	public static void println(int priority, Object msg) {
 
 		if (isDebug())
-			Log.println(priority, TAG, msg);
+			Log.println(priority, TAG, msg.toString());
 
 	}
 }
