@@ -237,12 +237,7 @@ public final class FileUtil {
 	 */
 	public static void writeDataToSDCard(String path, String filename,
 			byte[] data) throws IOException {
-		File file = createFile(path, filename);
-		BufferedOutputStream out = new BufferedOutputStream(
-				new FileOutputStream(file));
-		out.write(data);
-		out.flush();
-		out.close();
+		writeDataToSDCard(createFile(path, filename), data);
 	}
 
 	/**
@@ -277,18 +272,7 @@ public final class FileUtil {
 	 */
 	public static void writeDataToSDCard(String path, String filename,
 			InputStream inputStream) throws IOException {
-		File file = createFile(path, filename);
-		BufferedOutputStream out = new BufferedOutputStream(
-				new FileOutputStream(file));
-		BufferedInputStream in = new BufferedInputStream(inputStream);
-		byte[] data = new byte[in.available()];
-		int len = 0;
-		while ((len = in.read(data)) != -1) {
-			out.write(data);
-		}
-		in.close();
-		out.flush();
-		out.close();
+		writeDataToSDCard(createFile(path, filename), inputStream);
 	}
 
 	/**
@@ -315,6 +299,8 @@ public final class FileUtil {
 		in.close();
 		out.flush();
 		out.close();
-
 	}
+	
+	
+
 }
