@@ -1,4 +1,4 @@
-package com.example.utils;
+package com.wj.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

@@ -1,4 +1,4 @@
-package com.example.utils;
+package com.wj.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

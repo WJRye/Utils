@@ -1,4 +1,4 @@
-
+package com.wj.utils.debug;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -207,7 +207,7 @@ public class DebugFile extends Debug {
 	}
 
 	/**
-	 * 获得存储的根路径文件
+	 * 获得存储的跟路径文件
 	 * 
 	 * @param dirPath
 	 *            根路径

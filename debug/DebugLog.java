@@ -1,4 +1,4 @@
-package com.example.utils.usercase.debug;
+package com.wj.utils.debug;
 
 import android.util.Log;
 
