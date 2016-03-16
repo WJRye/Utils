@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 
 /**
  * @Title:
@@ -27,10 +26,11 @@ import android.webkit.CookieSyncManager;
  * @version V1.0
  */
 public final class HttpUtil {
+
 	/**
 	 * 编码格式
 	 */
-	private static final String CHARSET_NAME = "UTF-8";
+	private static final String CHARSET = "UTF-8";
 	/**
 	 * GET请求方式
 	 */
@@ -61,7 +61,7 @@ public final class HttpUtil {
 			outStream.write(buffer, 0, len);
 		}
 		inputStream.close();
-		return new String(outStream.toByteArray(), CHARSET_NAME);
+		return new String(outStream.toByteArray(), CHARSET);
 	}
 
 	/**
@@ -78,12 +78,12 @@ public final class HttpUtil {
 		HttpURLConnection conn = (HttpURLConnection) new URL(path)
 				.openConnection();
 		conn.setConnectTimeout(5000);
-		conn.setReadTimeout(20000);
+		conn.setReadTimeout(10000);
 		conn.setRequestMethod(GET);
 		conn.setDoInput(true);
 		conn.setDoOutput(false);
 		conn.setRequestProperty("Cookie", getCookie(path));
-		conn.setRequestProperty("Accept-Charset", CHARSET_NAME);
+		conn.setRequestProperty("Accept-Charset", CHARSET);
 		conn.setRequestProperty("Connection:", "close");
 		if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 			result = read(conn.getInputStream());
@@ -127,10 +127,9 @@ public final class HttpUtil {
 		StringBuilder data = new StringBuilder();
 		if (params != null && !params.isEmpty()) {
 			for (Map.Entry<String, String> entry : params.entrySet()) {
-				if (entry.getValue() != null && !"".equals(entry.getValue())) {
+				if (entry.getValue() != null && entry.getValue().length() != 0) {
 					data.append(entry.getKey()).append("=");
-					data.append(URLEncoder.encode(entry.getValue(),
-							CHARSET_NAME));
+					data.append(URLEncoder.encode(entry.getValue(), CHARSET));
 					data.append("&");
 				}
 			}
@@ -140,7 +139,7 @@ public final class HttpUtil {
 				List<String> values = entry.getValue();
 				for (String value : values) {
 					data.append(entry.getKey()).append("=");
-					data.append(URLEncoder.encode(value, CHARSET_NAME));
+					data.append(URLEncoder.encode(value, CHARSET));
 					data.append("&");
 				}
 			}
@@ -162,7 +161,8 @@ public final class HttpUtil {
 		conn.setDoInput(true);
 		conn.setRequestProperty("Content-Type",
 				"application/x-www-form-urlencoded");
-		conn.setRequestProperty("Content-Length", String.valueOf(entity.length));
+		conn.setRequestProperty("Content-Length",
+				Integer.toString(entity.length));
 		conn.setRequestProperty("Cookie", getCookie(path));
 		OutputStream outStream = conn.getOutputStream();
 		outStream.write(entity);
@@ -195,9 +195,9 @@ public final class HttpUtil {
 			throws MalformedURLException, IOException {
 		String result = null;
 		if (file != null && file.isFile()) {
-			String boundary = "-----------------------------7dec138207ee";
-			String twoHyphens = "--";
-			String lineFeed = "\r\n";
+			final String boundary = "-----------------------------7dec138207ee";
+			final String twoHyphens = "--";
+			final String lineFeed = "\r\n";
 			HttpURLConnection conn = (HttpURLConnection) new URL(path)
 					.openConnection();
 			conn.setReadTimeout(20000);
@@ -205,22 +205,22 @@ public final class HttpUtil {
 			conn.setRequestMethod(POST);
 			conn.setDoOutput(true);
 			conn.setDoInput(true);
-			conn.addRequestProperty("Accept",
+			conn.setRequestProperty("Accept",
 					"text/html, application/xhtml+xml, */*");
-			conn.addRequestProperty("Charset", "UTF-8");
-			conn.addRequestProperty("Content-Type",
+			conn.setRequestProperty("Charset", CHARSET);
+			conn.setRequestProperty("Content-Type",
 					"multipart/form-data;boundary=" + boundary);
-			// conn.setRequestProperty("Content-Length", file.length() + "");
-			conn.addRequestProperty("Connection", "Keep-Alive");
-			conn.addRequestProperty("Cache-Control", "no-cache");
-			conn.addRequestProperty("Cookie", getCookie(path));
+			// conn.setRequestProperty("Content-Length", "");
+			conn.setRequestProperty("Connection", "Keep-Alive");
+			conn.setRequestProperty("Cache-Control", "no-cache");
+			conn.setRequestProperty("Cookie", getCookie(path));
 
 			DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
 
 			if (params != null && !params.isEmpty()) {
 				for (Map.Entry<String, String> entry : params.entrySet()) {
 					if (entry.getValue() != null
-							&& !"".equals(entry.getValue())) {
+							&& entry.getValue().length() != 0) {
 						dos.writeBytes(twoHyphens + boundary + lineFeed);
 						dos.writeBytes("Content-Disposition: form-data; name=\""
 								+ entry.getKey() + "\"");
@@ -236,12 +236,12 @@ public final class HttpUtil {
 			dos.writeBytes("Content-Disposition: form-data; name=\"file\"; filename=\""
 					+ file.getName() + "\"");
 			dos.writeBytes(lineFeed);
-			dos.writeBytes(lineFeed);
-			dos.writeBytes(read(new FileInputStream(file)));
-			dos.writeBytes(lineFeed);
 			dos.writeBytes("Content-Type: "
 					+ URLConnection.getFileNameMap().getContentTypeFor(
 							file.getName()));
+			dos.writeBytes(lineFeed);
+			dos.writeBytes(lineFeed);
+			dos.writeBytes(read(new FileInputStream(file)));
 			dos.writeBytes(lineFeed);
 			dos.writeBytes(twoHyphens + boundary + twoHyphens + lineFeed);
 			dos.flush();
@@ -276,20 +276,19 @@ public final class HttpUtil {
 	 *            地址
 	 */
 	private static void setCookie(HttpURLConnection conn, String path) {
-		String cookieVal = null;
+		String cookieValue = null;
 		String key = null;
 		for (int i = 1; (key = conn.getHeaderFieldKey(i)) != null; i++) {
 			if (key.equals("Set-Cookie")) {
-				cookieVal = conn.getHeaderField(i);
+				cookieValue = conn.getHeaderField(i);
 			}
 		}
-		if (cookieVal != null) {
-			// delete the old cookie value
+		if (cookieValue != null) {
+			// 删掉以前的cookie
 			CookieManager cookieManager = CookieManager.getInstance();
 			cookieManager.removeAllCookie();
-			CookieSyncManager.getInstance().sync();
-			// add new cookie to CookieManager
-			CookieManager.getInstance().setCookie(path, cookieVal);
+			// 添加新的cookie
+			cookieManager.setCookie(path, cookieValue);
 		}
 	}
 }
