@@ -1,3 +1,4 @@
+package com.wj.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -9,9 +10,13 @@ import android.util.TypedValue;
 import android.view.View;
 
 /**
- * @author wangjiang
- * 
- *         界面显示的工具类，获得手机状态栏的高度，导航栏的高度，ActionBar的高度等等。注：有些来自于网络， 谢谢他们提供的帮助。
+ * @Title:
+ * @Package
+ * @Description: TODO(界面显示的工具类，获得手机状态栏的高度，导航栏的高度，ActionBar的高度等等。注：有些来自于网络，
+ *               谢谢他们提供的帮助。)
+ * @author wangjiang wangjiang7747@gmail.com
+ * @date 2016-3-17 下午6:16:46
+ * @version V1.0
  */
 public final class DisplayUtil {
 
@@ -116,6 +121,8 @@ public final class DisplayUtil {
 	}
 
 	/**
+	 * 配置文件中可以用：?attr/selectableItemBackground
+	 * 
 	 * @param context
 	 *            上下文对象
 	 * @return 获得系统默认的选择条目背景，有边界，需要API 11以上，另外在API 21以上时是有边界的波纹
@@ -144,16 +151,17 @@ public final class DisplayUtil {
 	}
 
 	/**
-	 * 获取当前屏幕截图，包含状态栏，方法来自博客：http://blog.csdn.net/lmj623565791/article/details/
-	 * 38965311，做了小许修改。注意：在Activity没有绘制完时，不能够调用该方法（不能放在onCreate()等方法中）。
+	 * 获取当前屏幕截图，包含状态栏。注意：在Activity没有绘制完时，不能够调用该方法（不能放在onCreate()等方法中）。
 	 * 
 	 * @param activity
 	 *            当前Activity
 	 * @return 屏幕截图bitmap
 	 * @throws OutOfMemoryError
 	 *             内存溢出
+	 * 
+	 * @see http://blog.csdn.net/lmj623565791/article/details/ 38965311
 	 */
-	public static Bitmap snapShotWithStatusBar(Activity activity)
+	public static Bitmap screenShotWithStatusBar(Activity activity)
 			throws OutOfMemoryError {
 		View view = activity.getWindow().getDecorView();
 		view.setDrawingCacheEnabled(true);
@@ -170,8 +178,7 @@ public final class DisplayUtil {
 	}
 
 	/**
-	 * 获取当前屏幕截图，不包含状态栏，方法来自博客：http://blog.csdn.net/lmj623565791/article/details/
-	 * 38965311，做了小许修改。注意：在Activity没有绘制完时，不能够调用该方法（不能放在onCreate()等方法中）。
+	 * 获取当前屏幕截图，不包含状态栏。注意：在Activity没有绘制完时，不能够调用该方法（不能放在onCreate()等方法中）。
 	 * 
 	 * 
 	 * @param activity
@@ -179,8 +186,10 @@ public final class DisplayUtil {
 	 * @return 屏幕截图bitmap
 	 * @throws OutOfMemoryError
 	 *             内存溢出
+	 * 
+	 * @see http://blog.csdn.net/lmj623565791/article/details/ 38965311
 	 */
-	public static Bitmap snapShotWithoutStatusBar(Activity activity)
+	public static Bitmap screenShotWithoutStatusBar(Activity activity)
 			throws OutOfMemoryError {
 		View view = activity.getWindow().getDecorView();
 		view.setDrawingCacheEnabled(true);
