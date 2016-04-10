@@ -3,6 +3,14 @@ package com.wj.utils;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
+/**
+ * @Title:
+ * @Package
+ * @Description: TODO(手机信息获取工具类，需要权限"android.permission.READ_PHONE_STATE")
+ * @author wangjiang wangjiang7747@gmail.com
+ * @date 2016-3-16 下午6:58:16
+ * @version V1.0
+ */
 public final class TelephonyUtil {
 
 	private TelephonyUtil() {

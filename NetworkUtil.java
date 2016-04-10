@@ -8,8 +8,7 @@ import android.telephony.TelephonyManager;
 /**
  * @Title:
  * @Package
- * @Description: TODO(判断网络状态的相关类，需要权限<uses-permission
- *               android:name="android.permission.ACCESS_NETWORK_STATE" />)
+ * @Description: TODO(判断网络状态的相关类，需要权限"android.permission.ACCESS_NETWORK_STATE")
  * @author wangjiang wangjiang7747@gmail.com
  * @date 2016-3-16 下午5:10:39
  * @version V1.0

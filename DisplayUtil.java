@@ -75,6 +75,16 @@ public final class DisplayUtil {
 	}
 
 	/**
+	 * @param activity
+	 *            当前的Activity对象
+	 * @return 获得内容的高度
+	 */
+	public static int getContentHeight(Activity activity) {
+		return getScreenHeight(activity) - getStatusBarHeight(activity)
+				- getActionBarHeight(activity);
+	}
+
+	/**
 	 * 将px转换为dp
 	 * 
 	 * @param context
@@ -204,6 +214,5 @@ public final class DisplayUtil {
 				- statusBarHeight);
 		view.destroyDrawingCache();
 		return bp;
-
 	}
 }

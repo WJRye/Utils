@@ -133,7 +133,7 @@ public final class MediaProviderUtil {
 	 * @param path
 	 *            文件路径
 	 */
-	public static void scan(Context context, String path) {
+	public static void scanFile(Context context, String path) {
 		Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
 		intent.setData(Uri.fromFile(new File(path)));
 		context.sendBroadcast(intent);
