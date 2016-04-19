@@ -52,17 +52,17 @@ public final class HttpUtil {
 	 * @throws IOException
 	 *             读取错误
 	 */
-	private static final String read(InputStream inputStream)
-			throws IOException {
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		byte[] buffer = new byte[inputStream.available()];
-		int len = 0;
-		while ((len = inputStream.read(buffer)) != -1) {
-			outStream.write(buffer, 0, len);
-		}
-		inputStream.close();
-		return new String(outStream.toByteArray(), CHARSET);
-	}
+   private static final String read(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            outStream.write(buffer, 0, len);
+        }
+        String string = new String(outStream.toByteArray(), UTF_8);
+        inputStream.close();
+        return string;
+    }
 
 	/**
 	 * 发送GET请求
