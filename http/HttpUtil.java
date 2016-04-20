@@ -125,25 +125,35 @@ public final class HttpUtil {
 			Map<String, List<String>> paramsMulti)
 			throws MalformedURLException, IOException {
 		StringBuilder data = new StringBuilder();
-		if (params != null && !params.isEmpty()) {
-			for (Map.Entry<String, String> entry : params.entrySet()) {
-				if (entry.getValue() != null && entry.getValue().length() != 0) {
-					data.append(entry.getKey()).append("=");
-					data.append(URLEncoder.encode(entry.getValue(), CHARSET));
-					data.append("&");
-				}
-			}
-		}
-		if (paramsMulti != null && !paramsMulti.isEmpty()) {
-			for (Map.Entry<String, List<String>> entry : paramsMulti.entrySet()) {
-				List<String> values = entry.getValue();
-				for (String value : values) {
-					data.append(entry.getKey()).append("=");
-					data.append(URLEncoder.encode(value, CHARSET));
-					data.append("&");
-				}
-			}
-		}
+		 if (params != null && !params.isEmpty()) {
+            Iterator iterator = params.entrySet().iterator();
+            String value = null;
+            while (iterator.hasNext()) {
+                Map.Entry<String, String> entry = (Map.Entry<String, String>) iterator.next();
+                value = entry.getValue();
+                if (value != null && value.length() != 0) {
+                    data.append(entry.getKey()).append("=");
+                    data.append(URLEncoder.encode(value, UTF_8));
+                    data.append("&");
+                }
+                iterator.remove();
+            }
+        }
+        if (paramsMulti != null && !paramsMulti.isEmpty()) {
+            Iterator iterator = paramsMulti.entrySet().iterator();
+            List<String> values = null;
+            while (iterator.hasNext()) {
+                Map.Entry<String, List<String>> entry = (Map.Entry<String, List<String>>) iterator.next();
+                values = entry.getValue();
+                if (values == null || values.isEmpty()) break;
+                for (String value : values) {
+                    data.append(entry.getKey()).append("=");
+                    data.append(URLEncoder.encode(value, UTF_8));
+                    data.append("&");
+                }
+                iterator.remove();
+            }
+        }
 		if (data.length() >= 1)
 			data.deleteCharAt(data.length() - 1);
 
